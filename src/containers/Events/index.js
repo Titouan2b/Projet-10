@@ -11,14 +11,17 @@ const PER_PAGE = 9;
 
 const EventList = () => {
   const { data, error } = useData();
-  const [type, setType] = useState();
+  const [type, setType] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const filteredEvents = (
+    
     (!type
       ? data?.events
       : data?.events) || []
   ).filter((event, index) => {
+    const typeMatch = !type || event.type === type
     if (
+      typeMatch && 
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
     ) {
@@ -27,6 +30,7 @@ const EventList = () => {
     return false;
   });
   const changeType = (evtType) => {
+    console.log(type)
     setCurrentPage(1);
     setType(evtType);
   };
@@ -42,7 +46,7 @@ const EventList = () => {
           <h3 className="SelectTitle">Catégories</h3>
           <Select
             selection={Array.from(typeList)}
-            onChange={(value) => (value ? changeType(value) : changeType(null))}
+            onChange={(value) => (value || value === null ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
@@ -50,10 +54,10 @@ const EventList = () => {
                 {({ setIsOpened }) => (
                   <EventCard
                     onClick={() => setIsOpened(true)}
-                    imageSrc={event.cover}
-                    title={event.title}
-                    date={new Date(event.date)}
-                    label={event.type}
+                    imageSrc={event?.cover}
+                    title={event?.title}
+                    date={new Date(event?.date)}
+                    label={event?.type}
                   />
                 )}
               </Modal>
