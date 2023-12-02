@@ -17,6 +17,10 @@ const Slider = () => {
     const interval = setInterval(nextCard, 5000);
     return () => {clearInterval(interval)}
   });
+  const changeSlideOnClick = (indexRadio) => {
+    setIndex(indexRadio)
+  }
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -46,7 +50,7 @@ const Slider = () => {
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx}
-                  readOnly
+                  onChange={() => changeSlideOnClick(radioIdx)}
                 />
 
               ))}
