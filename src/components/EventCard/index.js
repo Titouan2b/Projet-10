@@ -19,13 +19,11 @@ const EventCard = ({
     >
       <div className="EventCard__imageContainer">
         <img data-testid="card-image-testid" src={imageSrc} alt={imageAlt} />
-        {console.log(imageSrc)}
         <div className="EventCard__label">{label}</div>
       </div>
       <div className="EventCard__descriptionContainer">
         <div className="EventCard__title">{title}</div>
         <div className="EventCard__month">{getMonth(date)}</div>
-        {console.log(title)}
       </div>
     </div>
   );
